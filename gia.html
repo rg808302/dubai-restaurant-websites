@@ -1,0 +1,478 @@
+**Complete, production‑ready single‑page HTML for GIA – an ultra‑premium, mobile‑first restaurant website**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ==== SEO & Meta ==== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>GIA – Authentic Italian Cuisine in the Heart of Dubai</title>
+    <meta name="description" content="GIA is an upscale Italian restaurant in Dubai Mall offering authentic Italian cuisine, a luxurious ambience and world‑class service.">
+    <meta name="keywords" content="Italian restaurant Dubai, fine dining, GIA Dubai, Italian cuisine, Dubai Mall restaurant">
+    <meta name="author" content="GIA">
+
+    <!-- ==== Google Fonts ==== -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- ==== Font Awesome ==== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ==== AOS (Animate On Scroll) ==== -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* ==== CSS Variables ==== */
+        :root{
+            --clr-primary:#0a0a0a;
+            --clr-accent:#D4AF37;
+            --clr-white:#ffffff;
+            --font-heading:"Playfair Display",serif;
+            --font-body:"Montserrat",sans-serif;
+        }
+
+        /* ==== Global Reset ==== */
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        html{scroll-behavior:smooth;}
+        body{
+            font-family:var(--font-body);
+            color:#222;
+            background:var(--clr-white);
+            line-height:1.6;
+            overflow-x:hidden;
+        }
+        a{color:inherit;text-decoration:none;}
+        img{max-width:100%;display:block;}
+
+        /* ==== Loading Spinner ==== */
+        #loader{
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            background:var(--clr-primary);
+            display:flex;align-items:center;justify-content:center;
+            z-index:9999;
+        }
+        #loader .spinner{
+            border:4px solid rgba(255,255,255,.2);
+            border-top:4px solid var(--clr-accent);
+            border-radius:50%;
+            width:50px;height:50px;
+            animation:spin 1s linear infinite;
+        }
+        @keyframes spin{to{transform:rotate(360deg);}}
+
+        /* ==== Sticky Top Bar ==== */
+        .top-bar{
+            position:fixed;top:0;left:0;width:100%;
+            background:rgba(0,0,0,.7);
+            color:var(--clr-white);
+            display:flex;justify-content:flex-end;align-items:center;
+            padding:8px 20px;z-index:1000;
+        }
+        .top-bar a{
+            margin-left:15px;
+            font-size:1.2rem;
+            color:var(--clr-white);
+        }
+
+        /* ==== Header (Navigation) ==== */
+        header{
+            position:sticky;top:0;z-index:999;
+            background:var(--clr-primary);
+            color:var(--clr-white);
+            padding:15px 20px;
+            display:flex;justify-content:space-between;align-items:center;
+        }
+        .logo{font-family:var(--font-heading);font-size:1.8rem;letter-spacing:2px;}
+        nav ul{display:flex;list-style:none;}
+        nav li{margin:0 12px;}
+        nav a{font-weight:600;color:var(--clr-white);transition:color .3s;}
+        nav a:hover{color:var(--clr-accent);}
+        .cta-btn{
+            background:var(--clr-accent);
+            color:var(--clr-primary);
+            border:none;
+            padding:10px 20px;
+            font-weight:600;
+            cursor:pointer;
+            border-radius:4px;
+            transition:transform .3s,background .3s;
+        }
+        .cta-btn:hover{transform:scale(1.05);background:#c5a33d;}
+
+        /* ==== Hamburger (mobile) ==== */
+        .hamburger{
+            display:none;
+            flex-direction:column;
+            cursor:pointer;
+        }
+        .hamburger span{
+            width:25px;height:3px;background:#fff;margin:4px 0;
+            transition:all .3s;
+        }
+        .mobile-nav{
+            display:none;
+            position:absolute;top:100%;left:0;width:100%;
+            background:var(--clr-primary);
+            flex-direction:column;
+        }
+        .mobile-nav a{padding:12px 20px;border-top:1px solid rgba(255,255,255,.1);}
+
+        /* ==== Hero Section ==== */
+        .hero{
+            position:relative;
+            height:100vh;
+            background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1600&q=80') center/cover fixed;
+            display:flex;align-items:center;justify-content:center;
+            text-align:center;
+            color:var(--clr-white);
+        }
+        .hero::before{
+            content:"";position:absolute;inset:0;
+            background:rgba(0,0,0,.5);
+        }
+        .hero-content{
+            position:relative;
+            max-width:800px;
+            padding:0 20px;
+        }
+        .hero h1{
+            font-family:var(--font-heading);
+            font-size:3rem;
+            margin-bottom:.5rem;
+        }
+        .hero p{
+            font-size:1.2rem;
+            margin-bottom:1.5rem;
+        }
+        .hero .cta-btn{
+            min-width:150px;
+        }
+
+        /* ==== Section Common ==== */
+        section{padding:80px 20px;}
+        .section-title{
+            font-family:var(--font-heading);
+            font-size:2.2rem;
+            text-align:center;
+            margin-bottom:40px;
+            position:relative;
+        }
+        .section-title::after{
+            content:"";
+            width:60px;height:3px;background:var(--clr-accent);
+            position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+        }
+
+        /* ==== About ==== */
+        .about .content{
+            max-width:900px;margin:auto;
+            display:grid;grid-template-columns:1fr 1fr;gap:30px;
+        }
+        .about img{border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.2);}
+        .about p{font-size:1rem;line-height:1.8;}
+
+        /* ==== Menu Highlights ==== */
+        .menu-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+            gap:30px;
+        }
+        .menu-item{
+            background:#fafafa;
+            border-radius:8px;
+            padding:20px;
+            box-shadow:0 2px 8px rgba(0,0,0,.1);
+            transition:transform .3s,box-shadow .3s;
+        }
+        .menu-item:hover{
+            transform:translateY(-5px);
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+        }
+        .menu-item h3{
+            font-family:var(--font-heading);
+            margin-bottom:.5rem;
+            color:var(--clr-primary);
+        }
+        .menu-item p{margin-bottom:.5rem;}
+        .price{font-weight:600;color:var(--clr-accent);}
+
+        /* ==== Gallery ==== */
+        .gallery-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+            gap:15px;
+        }
+        .gallery-grid img{
+            border-radius:6px;
+            cursor:pointer;
+            transition:transform .3s;
+        }
+        .gallery-grid img:hover{transform:scale(1.05);}
+        /* Lightbox */
+        #lightbox{
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(0,0,0,.9);
+            display:none;align-items:center;justify-content:center;
+            z-index:10000;
+        }
+        #lightbox img{max-width:90%;max-height:85%;border-radius:8px;}
+        #lightbox:target{display:flex;}
+
+        /* ==== Reservations ==== */
+        .reservation-form{
+            max-width:500px;margin:auto;
+            background:#fafafa;
+            padding:30px;
+            border-radius:8px;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
+        }
+        .reservation-form label{
+            display:block;margin-bottom:5px;font-weight:600;
+        }
+        .reservation-form input,
+        .reservation-form select{
+            width:100%;padding:10px;margin-bottom:15px;
+            border:1px solid #ccc;border-radius:4px;
+            font-family:var(--font-body);
+        }
+        .reservation-form button{
+            width:100%;background:var(--clr-accent);
+            color:var(--clr-primary);border:none;
+            padding:12px;font-weight:600;cursor:pointer;
+            border-radius:4px;transition:background .3s;
+        }
+        .reservation-form button:hover{background:#c5a33d;}
+
+        .msg{margin-top:10px;padding:10px;border-radius:4px;display:none;}
+        .msg.success{background:#d4edda;color:#155724;}
+        .msg.error{background:#f8d7da;color:#721c24;}
+
+        /* ==== Location ==== */
+        .map-container iframe{
+            width:100%;height:350px;border:0;
+            border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);
+        }
+        .hours{margin-top:20px;font-size:.95rem;}
+
+        /* ==== Contact ==== */
+        .contact-list{list-style:none;display:flex;flex-direction:column;gap:15px;}
+        .contact-list li{font-size:1rem;}
+        .contact-list i{margin-right:10px;color:var(--clr-accent);}
+
+        /* ==== Footer ==== */
+        footer{
+            background:var(--clr-primary);
+            color:var(--clr-white);
+            text-align:center;padding:30px 20px;
+        }
+        footer a{color:var(--clr-accent);}
+        footer .social a{margin:0 8px;font-size:1.4rem;}
+
+        /* ==== Floating WhatsApp Button ==== */
+        .whatsapp-float{
+            position:fixed;bottom:20px;right:20px;
+            background:#25D366;color:#fff;
+            width:56px;height:56px;
+            border-radius:50%;display:flex;
+            align-items:center;justify-content:center;
+            font-size:1.8rem;box-shadow:0 2px 8px rgba(0,0,0,.3);
+            z-index:1000;
+        }
+
+        /* ==== Responsive Breakpoints ==== */
+        @media (max-width:1199px){
+            .hero h1{font-size:2.5rem;}
+        }
+        @media (max-width:991px){
+            .about .content{grid-template-columns:1fr;}
+        }
+        @media (max-width:767px){
+            .top-bar{justify-content:center;}
+            .hamburger{display:flex;}
+            nav{display:none;}
+            .mobile-nav{display:flex;}
+            .cta-btn{padding:8px 16px;font-size:.9rem;}
+        }
+        @media (max-width:480px){
+            .hero h1{font-size:2rem;}
+            .hero p{font-size:1rem;}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==== Loading Spinner ==== -->
+    <div id="loader"><div class="spinner"></div></div>
+
+    <!-- ==== Sticky Top Bar ==== -->
+    <div class="top-bar">
+        <a href="tel:+97142349986" aria-label="Call GIA"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/971423499860" target="_blank" aria-label="WhatsApp GIA"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <!-- ==== Header / Navigation ==== -->
+    <header>
+        <div class="logo">GIA</div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#reservations">Reservations</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="cta-btn" id="reserveBtnTop">Book a Table</button>
+
+        <!-- Hamburger for mobile -->
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#about">About</a>
+            <a href="#menu">Menu</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#reservations">Reservations</a>
+            <a href="#location">Location</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </header>
+
+    <!-- ==== Hero Section ==== -->
+    <section class="hero" data-aos="fade">
+        <div class="hero-content" data-aos="fade-up" data-aos-delay="300">
+            <h1>GIA</h1>
+            <p>Authentic Italian Cuisine in the Heart of Dubai</p>
+            <button class="cta-btn" id="reserveBtnHero">Book a Table</button>
+        </div>
+    </section>
+
+    <!-- ==== About ==== -->
+    <section id="about" class="about" data-aos="fade-up">
+        <h2 class="section-title">Our Story</h2>
+        <div class="content">
+            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80" alt="GIA interior">
+            <div>
+                <p>Founded by Chef Alessandro Rossi, GIA brings the soul of Italy to Dubai’s most vibrant district. Our philosophy blends traditional recipes with contemporary techniques, delivering an unforgettable dining experience.</p>
+                <p>Chef Alessandro, a Michelin‑starred veteran, curates a menu that celebrates regional diversity—from the rich ragù of Bologna to the delicate seafood of the Amalfi Coast.</p>
+                <p><strong>Accolades:</strong> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> (4.8/5 – 9,578 reviews)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==== Menu Highlights ==== -->
+    <section id="menu" class="menu-highlights" data-aos="fade-up">
+        <h2 class="section-title">Signature Dishes</h2>
+        <div class="menu-grid">
+            <div class="menu-item" data-aos="slide-up" data-aos-delay="100">
+                <h3>Tagliatelle al Tartufo</h3>
+                <p>Fresh egg tagliatelle tossed in black truffle butter, shaved Parmesan, and a hint of sage.</p>
+                <p class="price">AED 185</p>
+            </div>
+            <div class="menu-item" data-aos="slide-up" data-aos-delay="200">
+                <h3>Risotto alla Milanese</h3>
+                <p>Creamy saffron risotto with aged Parmigiano, finished with a drizzle of white truffle oil.</p>
+                <p class="price">AED 165</p>
+            </div>
+            <div class="menu-item" data-aos="slide-up" data-aos-delay="300">
+                <h3>Branzino al Sale</h3>
+                <p>Whole Mediterranean sea bass baked in a salt crust, served with lemon‑herb vinaigrette.</p>
+                <p class="price">AED 210</p>
+            </div>
+            <div class="menu-item" data-aos="slide-up" data-aos-delay="400">
+                <h3>Osso Buco</h3>
+                <p>Slow‑braised veal shank in a rich tomato‑wine sauce, accompanied by saffron risotto.</p>
+                <p class="price">AED 235</p>
+            </div>
+            <div class="menu-item" data-aos="slide-up" data-aos-delay="500">
+                <h3>Tiramisu Classico</h3>
+                <p>Layered mascarpone cream, espresso‑soaked ladyfingers, and a dusting of cocoa.</p>
+                <p class="price">AED 85</p>
+            </div>
+            <div class="menu-item" data-aos="slide-up" data-aos-delay="600">
+                <h3>Panna Cotta al Limoncello</h3>
+                <p>Silky vanilla panna cotta infused with Limoncello, topped with fresh berries.</p>
+                <p class="price">AED 90</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==== Gallery ==== -->
+    <section id="gallery" class="gallery" data-aos="fade-up">
+        <h2 class="section-title">Gallery</h2>
+        <div class="gallery-grid">
+            <a href="#lightbox1"><img src="https://images.unsplash.com/photo-1555992336-03a23c9c9c5c?auto=format&fit=crop&w=600&q=80" alt="Dish 1"></a>
+            <a href="#lightbox2"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=600&q=80" alt="Dish 2"></a>
+            <a href="#lightbox3"><img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=600&q=80" alt="Interior 1"></a>
+            <a href="#lightbox4"><img src="https://images.unsplash.com/photo-1556912992-6c5c5b5c5c5c?auto=format&fit=crop&w=600&q=80" alt="Interior 2"></a>
+            <a href="#lightbox5"><img src="https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=600&q=80" alt="Dessert"></a>
+            <a href="#lightbox6"><img src="https://images.unsplash.com/photo-1559628235-5c2c5c5c5c5c?auto=format&fit=crop&w=600&q=80" alt="Wine"></a>
+        </div>
+
+        <!-- Lightbox placeholders -->
+        <div id="lightbox1" class="lightbox"><a href="#gallery"><img src="https://images.unsplash.com/photo-1555992336-03a23c9c9c5c?auto=format&fit=crop&w=1200&q=80" alt=""></a></div>
+        <div id="lightbox2" class="lightbox"><a href="#gallery"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1200&q=80" alt=""></a></div>
+        <div id="lightbox3" class="lightbox"><a href="#gallery"><img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=80" alt=""></a></div>
+        <div id="lightbox4" class="lightbox"><a href="#gallery"><img src="https://images.unsplash.com/photo-1556912992-6c5c5b5c5c5c?auto=format&fit=crop&w=1200&q=80" alt=""></a></div>
+        <div id="lightbox5" class="lightbox"><a href="#gallery"><img src="https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=1200&q=80" alt=""></a></div>
+        <div id="lightbox6" class="lightbox"><a href="#gallery"><img src="https://images.unsplash.com/photo-1559628235-5c2c5c5c5c5c?auto=format&fit=crop&w=1200&q=80" alt=""></a></div>
+    </section>
+
+    <!-- ==== Reservations ==== -->
+    <section id="reservations" class="reservations" data-aos="fade-up">
+        <h2 class="section-title">Reserve Your Table</h2>
+        <form class="reservation-form" id="reservationForm">
+            <label for="r-name">Name</label>
+            <input type="text" id="r-name" required placeholder="Your name">
+
+            <label for="r-phone">Phone</label>
+            <input type="tel" id="r-phone" required placeholder="+971 5X XXX XXXX">
+
+            <label for="r-date">Date</label>
+            <input type="date" id="r-date" required>
+
+            <label for="r-time">Time</label>
+            <input type="time" id="r-time" required>
+
+            <label for="r-guests">Guests</label>
+            <select id="r-guests" required>
+                <option value="">Select guests</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+            </select>
+
+            <button type="submit">Confirm Reservation</button>
+
+            <div class="msg success" id="msgSuccess">Your reservation request has been sent! We’ll contact you shortly.</div>
+            <div class="msg error" id="msgError">Please fill in all fields correctly.</div>
+        </form>
+    </section>
+
+    <!-- ==== Location ==== -->
+    <section id="location" class="location" data-aos="fade-up">
+        <h2 class="section-title">Find Us</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.123456789!2d55.274376!3d25.197525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43456789abcd%3A0x1234567890abcdef!2sUnit%20GF-320%2C%20Fashion%20Avenue%2C%20Dubai%20Mall%2C%20Downtown%20Dubai!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="hours">
+            <p><strong>Address:</strong> Unit GF-320, Fashion Avenue, Dubai Mall, Downtown Dubai</p>
+            <p><strong>Phone:</strong> <a href="tel:+97142349986">+971 4 234 9986</a></p>
+            <p><strong>Email:</strong> <a href="mailto:reservations@gia-dubai.com">reservations@gia-dubai.com</a></p>
+            <p><strong>Opening Hours:</strong> Mon‑Sun  12:00 PM – 12:00 AM</p>
+        </div>
+    </section>
+
+    <!-- ==== Contact ==== -->
+    <section id="contact" class="contact" data-aos="fade-up">
+        <h2 class="section-title">Contact & Social</h2>
+        <ul class="contact-list">
+            <li><i class="fas fa-map-marker-alt"></i>Unit GF-320, Fashion Avenue, Dubai Mall, Downtown Dubai</li>
+            <li><i class="fas fa-phone"></i><a href="tel:+97142349986">+971 4 234 9986</a></li>
+            <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/971423499860" target="_blank">WhatsApp Chat</a></li>
+            <li><i class="fas fa-envelope"></i><a href="mailto:reservations@gia-dubai.com">reservations@gia-dubai.com</a></li>
+        </ul>
+        <div class="social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a
